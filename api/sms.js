@@ -1,3 +1,4 @@
+// api/sms.js
 require('dotenv').config();
 const twilio = require('twilio');
 
@@ -8,20 +9,20 @@ const twilioPhoneNumber = process.env.TWILIO_PHONE_NUMBER;
 const client = twilio(accountSid, authToken);
 
 const responses = {
-    bienvenida: `👋 ¡Hola! Soy **Nomi**, tu asistente virtual 🤖🌟\n\nEstoy aquí para ayudarte con temas de bienestar laboral y Recursos Humanos.\n\nResponde con el número de la opción que necesites:\n\n1️⃣ - 📋 Contestar encuesta **NOM-035**\n2️⃣ - 🧠 Realizar evaluación de desempeño\n3️⃣ - 👩‍💼 Contactar a una persona de Recursos Humanos\n4️⃣ - ⏰ Consultar horarios y tiempos de respuesta`,
-    opcion1_pregunta1: '✍️ ¿Cuántos colaboradores hay en tu centro de trabajo?',
-    opcion2_seleccion_puesto: 'Selecciona el puesto que deseas evaluar:\n\n🔑 Ama de llaves\n🔧 Mantenimiento\n👨‍🍳 Cocinero\n🧺 Lavandería\n⏱️ Checador\n🛎️ Recepcionista\n🛠️ Ayudante general\n💼 Recursos Humanos',
-    opcion4_contacto_rh: '📧 En breve, alguien de R.H. se pondrá en contacto contigo.\n\n🕒 Horario: Lunes a Viernes de 8:00 a.m. a 5:00 p.m.',
-    opcion5_horarios: '⏰ Horario de atención: Lunes a Viernes de 8:00 a.m. a 5:00 p.m.\n\n📨 Si escribes fuera de este horario, te responderemos el siguiente día hábil.\n\n🏥 Cumplamos juntos la NOM-035\n\n👥 Cuidando el bienestar de todas las personas trabajadoras.',
-    formulario_desempeno: (puesto) => `✉️ Por favor, llena el siguiente formulario:\n\nEvaluación para ${puesto}\n\nIncluye:\nNombre completo por apellido\nPuesto\nAntigüedad`,
-    guia1_link: '🔗 Contestar Guía I',
-    guia2_link: '🔗 Contestar Guía II (46 preguntas)',
-    guia3_link: '🔗 Contestar Guía III (72 preguntas)',
+bienvenida: `👋 ¡Hola! Soy **Nomi**, tu asistente virtual 🤖🌟\n\nEstoy aquí para ayudarte con temas de bienestar laboral y Recursos Humanos.\n\nResponde con el número de la opción que necesites:\n\n1️⃣ - 📋 Contestar encuesta **NOM-035**\n2️⃣ - 🧠 Realizar evaluación de desempeño\n3️⃣ - 👩‍💼 Contactar a una persona de Recursos Humanos\n4️⃣ - ⏰ Consultar horarios y tiempos de respuesta`,
+opcion1_pregunta1: '✍️ ¿Cuántos colaboradores hay en tu centro de trabajo?',
+opcion2_seleccion_puesto: 'Selecciona el puesto que deseas evaluar:\n\n🔑 Ama de llaves\n🔧 Mantenimiento\n👨‍🍳 Cocinero\n🧺 Lavandería\n⏱️ Checador\n🛎️ Recepcionista\n🛠️ Ayudante general\n💼 Recursos Humanos',
+opcion4_contacto_rh: '📧 En breve, alguien de R.H. se pondrá en contacto contigo.\n\n🕒 Horario: Lunes a Viernes de 8:00 a.m. a 5:00 p.m.',
+opcion5_horarios: '⏰ Horario de atención: Lunes a Viernes de 8:00 a.m. a 5:00 p.m.\n\n📨 Si escribes fuera de este horario, te responderemos el siguiente día hábil.\n\n🏥 Cumplamos juntos la NOM-035\n\n👥 Cuidando el bienestar de todas las personas trabajadoras.',
+formulario_desempeno: (puesto) => `✉️ Por favor, llena el siguiente formulario:\n\nEvaluación para ${puesto}\n\nIncluye:\nNombre completo por apellido\nPuesto\nAntigüedad`,
+guia1_link: '🔗 Contestar Guía I',
+guia2_link: '🔗 Contestar Guía II (46 preguntas)',
+guia3_link: '🔗 Contestar Guía III (72 preguntas)',
 };
 
 const userStates = {}; // Para mantener el estado de cada usuario
 
-module.exports = async (req, res) => {
+export default async (req, res) => {
 if (req.method === 'POST') {
 const { From: userPhoneNumber, Body: incomingMessage } = req.body;
 const message = incomingMessage.trim();
